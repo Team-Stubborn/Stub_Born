@@ -1,5 +1,6 @@
 # Stub_Born
-Steve Tubs, S.Tubs, stubbornly climbs the mountain
+
+Pitch: Steve Tubs, S.Tubs, stubbornly climbs the mountain, celeste/hollow knight style climb the mountain game
 
 ## Notes
 

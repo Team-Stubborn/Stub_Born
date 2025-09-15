@@ -31,10 +31,9 @@ var Gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 var grapple_active = false
 var grapple_point = Vector2.ZERO
 
-# --- CHANGE HERE ---
-# The reel-in speed is now 4x slower. Feel free to tweak this number
-# until it feels perfect for your game!
-var grapple_speed = 350
+# NEW: Adjust this value to change the \"reel-in\" speed.
+# Lower is slower, higher is faster. This prevents an instant teleport.
+var grapple_speed = 1400
 
 func _ready():
 	# Start with the rope invisible.
@@ -363,7 +362,6 @@ shape = SubResource("RectangleShape2D_1wfb3")
 points = PackedVector2Array(-15, 10, 2, 0)
 closed = true
 width = 0.5
-default_color = Color(0, 0, 0, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2

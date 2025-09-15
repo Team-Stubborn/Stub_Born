@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://qviwm3iw4nnp"]
+
+[ext_resource type="Script" uid="uid://cc011ffx6sjnu" path="res://Scenes&Levels/menu.gd" id="1_x5p4m"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_x5p4m")
+
+[node name="lvl1" type="Button" parent="."]
+offset_left = 332.0
+offset_top = 285.0
+offset_right = 748.0
+offset_bottom = 494.0
+text = "Level1"
+
+[node name="playground" type="Button" parent="."]
+offset_left = 332.0
+offset_top = 34.0
+offset_right = 748.0
+offset_bottom = 243.0
+text = "Playground"

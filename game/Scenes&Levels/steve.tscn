@@ -15,7 +15,7 @@
 script/source = "extends CharacterBody2D
 
 # --- movement vars (yours) ---
-const runSpeed = 50
+const runSpeed = 200
 const Jump_Velocity = -400
 var Jumps = 0
 var DashT = 0.0
@@ -30,39 +30,30 @@ var Gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 @onready var rope = $Line2D
 var grapple_active = false
 var grapple_point = Vector2.ZERO
-
-# --- CHANGE HERE ---
-# The reel-in speed is now 4x slower. Feel free to tweak this number
-# until it feels perfect for your game!
 var grapple_speed = 350
 
 func _ready():
-	# Start with the rope invisible.
 	rope.visible = false
 
 func _physics_process(delta):
 	# --- Aiming and Rope Visuals ---
 	if grapple_active:
-		# VISUAL CHANGE: While grappling, the line is visible but semi-transparent.
 		rope.points = [Vector2.ZERO, grapple_point - global_position]
 		rope.default_color = Color(1, 1, 1, 0.2) # 20% opacity
 	else:
-		# AIMING CHANGE: The aiming line is now only visible when a target is valid.
 		var dir = (get_global_mouse_position() - global_position).normalized()
 		ray.target_position = dir * 600
 		ray.force_raycast_update()
 		
 		if ray.is_colliding():
-			# If we can grapple, show the line from player to the exact point.
 			rope.visible = true
 			rope.points = [Vector2.ZERO, ray.get_collision_point() - global_position]
-			rope.default_color = Color.WHITE # Solid color for aiming preview
+			rope.default_color = Color.BLACK # Solid color for aiming preview
 		else:
 			# If we can't grapple, the line is completely invisible.
 			rope.visible = false
 
-	# --- Movement Code ---
-	# Standard gravity is only applied when not grappling.
+	# Movement Code
 	if not grapple_active and not is_on_floor():
 		velocity.y += Gravity * delta
 	
@@ -72,15 +63,18 @@ func _physics_process(delta):
 		elif Input.is_action_pressed(\"Right\"): velocity.x = runSpeed
 		else: velocity.x = move_toward(velocity.x, 0, 20)
 
-	# --- Jump ---
-	# Can only jump when not grappling.
+	# ground pound
+	if Input.is_action_just_pressed(\"GPound\") and is_on_floor():
+			velocity.y = Jump_Velocity*4 # add particles
+
+	# Jump
 	if not grapple_active:
 		if Input.is_action_just_pressed(\"Jump\") and (is_on_floor() or Jumps < 2):
 			velocity.y = Jump_Velocity
 			Jumps += 1
 		if is_on_floor(): Jumps = 0
 
-	# --- Grapple Actions ---
+	# Grapple Actions
 	if Input.is_action_just_pressed(\"grapple\") and not grapple_active:
 		_attempt_grapple()
 		
@@ -90,6 +84,8 @@ func _physics_process(delta):
 	if Input.is_action_just_released(\"grapple\") and grapple_active:
 		_release_grapple()
 		
+	# escape the level
+	
 	if Input.is_action_just_pressed(\"Menu\"):
 		get_tree().change_scene_to_file(\"res://Scenes&Levels/menu.tscn\")
 

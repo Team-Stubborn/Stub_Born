@@ -49,6 +49,7 @@ texture_filter = 1
 scale = Vector2(4, 4)
 
 [node name="Steve" parent="." instance=ExtResource("2_c6dee")]
+position = Vector2(-21.5, -0.5)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_4llbk")

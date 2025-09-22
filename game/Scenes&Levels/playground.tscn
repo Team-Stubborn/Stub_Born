@@ -85,7 +85,6 @@ sources/1 = SubResource("TileSetAtlasSource_81gyj")
 scale = Vector2(4, 4)
 
 [node name="Steve" parent="." instance=ExtResource("1_te7a4")]
-Pushing = false
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_81gyj")
